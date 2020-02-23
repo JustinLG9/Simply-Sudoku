@@ -38,7 +38,7 @@ app.get('/', function(req, res, next) {
 
 
 //-------------------------- Firestore Database --------------------------//
-const admin = require('firebase-admin');
+/*const admin = require('firebase-admin');
 
 let serviceAccount = require('C:\\Users\\justi\\Simple_Sudoku\\simplesudoku-ef96b-bff0a03eb9b2.json');
 
@@ -97,7 +97,7 @@ function getRandomBoardFromDB() {
   });
 };
 
-
+*/
 
 
 //-------------------------- Sudoku Functions --------------------------//
