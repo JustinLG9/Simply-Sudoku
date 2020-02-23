@@ -1,0 +1,184 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Simply Sudoku</title>
+  <meta name="description" content="Relaxing Sudoku Simply">
+  <meta name="author" content="Justin Gargano">
+
+  <link rel="stylesheet" type="text/css" href="../stylesheets/styles.css">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+</head>
+
+<body>
+  <script src="../javascripts/jquery.js"></script>
+
+    <div class="grid-container page">
+        <div class="flex-container header">
+          <h3 class="title">Simple Sudoku</h3>
+        </div>
+
+        <div class="grid-container sudoku" id="sudoku">
+
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+           
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            
+        </div> <!-- sudoku -->
+
+        <div class="grid-container homePageBtns currentGridMenu btnMenu">
+
+            <button class="playGiven homePageBtn">Play Given Sudoku</button>
+            <button class="newRandomBoard homePageBtn">New Random Sudoku</button>
+            <button class="customBoard homePageBtn">Custom Sudoku</button>
+            <button class="login homePageBtn">Login</button>
+            <button class="signUp homePageBtn">Sign Up</button>
+            
+        </div> <!-- homePageBtns -->
+
+        <div class="grid-container customBoardBtns btnMenu">
+
+          <button class="numpad numpad-1 customBoardBtn" data-num="1" data-color="maroon">1</button>
+          <button class="numpad numpad-2 customBoardBtn" data-num="2" data-color="forestgreen">2</button>
+          <button class="numpad numpad-3 customBoardBtn" data-num="3" data-color="purple">3</button>
+          <button class="numpad numpad-4 customBoardBtn" data-num="4" data-color="sienna">4</button>
+          <button class="numpad numpad-5 customBoardBtn" data-num="5" data-color="goldenrod">5</button>
+          <button class="numpad numpad-6 customBoardBtn" data-num="6" data-color="plum">6</button>
+          <button class="numpad numpad-7 customBoardBtn" data-num="7" data-color="orange">7</button>
+          <button class="numpad numpad-8 customBoardBtn" data-num="8" data-color="salmon">8</button>
+          <button class="numpad numpad-9 customBoardBtn" data-num="9" data-color="sandybrown">9</button>
+          <button class="delete customBoardBtn">Delete</button>
+          <button class="restart customBoardBtn">Restart</button>
+          <button class="submitCustomBoard customBoardBtn">Finished</button>
+          
+        </div> <!-- customBoardBtns -->
+
+        <div class="grid-container inGameBtns btnMenu">
+
+          <button class="normal numpadMode currentNumpadMode inGameBtn">Normal</button>
+          <button class="corner numpadMode inGameBtn">Corner</button>
+          <button class="center numpadMode inGameBtn">Center</button>
+          <button class="color numpadMode inGameBtn">Color</button>
+          <button class="numpad numpad-1 inGameBtn" data-num="1" data-color="maroon">1</button>
+          <button class="numpad numpad-2 inGameBtn" data-num="2" data-color="forestgreen">2</button>
+          <button class="numpad numpad-3 inGameBtn" data-num="3" data-color="purple">3</button>
+          <button class="numpad numpad-4 inGameBtn" data-num="4" data-color="sienna">4</button>
+          <button class="numpad numpad-5 inGameBtn" data-num="5" data-color="goldenrod">5</button>
+          <button class="numpad numpad-6 inGameBtn" data-num="6" data-color="plum">6</button>
+          <button class="numpad numpad-7 inGameBtn" data-num="7" data-color="orange">7</button>
+          <button class="numpad numpad-8 inGameBtn" data-num="8" data-color="salmon">8</button>
+          <button class="numpad numpad-9 inGameBtn" data-num="9" data-color="sandybrown">9</button>
+          <button class="delete inGameBtn">Delete</button>
+          <button class="func-btn undo inGameBtn">Undo</button>
+          <button class="func-btn redo inGameBtn">Redo</button>
+          <button class="func-btn check inGameBtn">Check</button>
+          <button class="func-btn restart inGameBtn">Restart</button>
+      
+        </div> <!-- inGameBtns -->
+
+        <div class="flex-container footer">
+
+          <div class="homeBtn iconBtn">
+            <i class="fa fa-home"></i>
+          </div>
+
+        </div> <!-- footer -->
+    </div> <!-- page -->
+    
+
+    <script src="../javascripts/scripts.js"></script>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</body>
+</html>
