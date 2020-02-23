@@ -16,12 +16,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// error handler
-app.use(function(req, res, next) {
-  res.status(404);
-  res.render('404');
-});
-
 let port = process.env.PORT;
 if (port == null || port == "") {
   port = 8000;
@@ -33,6 +27,11 @@ app.get('/', function(req, res, next) {
   res.render('index');
 });
 
+// error handler
+app.use(function(req, res, next) {
+  res.status(404);
+  res.render('404');
+});
 
 
 
