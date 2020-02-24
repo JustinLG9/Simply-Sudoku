@@ -1,35 +1,6 @@
 // Display buttons so they have innate grid-display, then hide
-$( ".customBoardBtns" ).hide();
-$( ".inGameBtns" ).hide();
-
-// Make icon buttons squares
-updateHeight();
-$( window ).resize(updateHeight);
-
-function updateHeight()
-{
-  var div = $(".iconBtn");
-  var height = div.height();
-  
-  div.css('width', height);
-}
-
-$( "button" ).addClass("btn");
-
-// Immediate button style change when clicked
-$( ".btn" ).mousedown(function() {
-  $( this ).addClass("immediateTransition");
-});
-$( ".iconBtn" ).mousedown(function() {
-  $( this ).addClass("immediateTransition");
-});
-$( document ).mouseup(function () {
-  setTimeout(function() {
-    $( ".immediateTransition" ).removeClass("immediateTransition");
-  }, 25);
-});
-
-$ ( ".currentNumpadMode" ).removeClass("btn");
+$( '.customBoardBtns' ).hide();
+$( '.inGameBtns' ).hide();
 
 
 var totalCells = 81;
@@ -40,38 +11,75 @@ var cellValues = [];
 cellValues.length = totalCells;
 cellValues.fill(0);
 
+// Create sudoku board
+for (i = 0; i < boardLength; i++) {
+  var sudokuRow = document.createElement('div');
+  sudokuRow.classList.add('sudokuRow', 'grid-container');
 
-// Adds class names to sudoku cells
-$( function() {
-  for (i = 0; i < totalCells; i++) {
-    var cell = ".sudoku input:nth-child(" + (i+1) + ")";
-    $( cell ).addClass("cell");
-    $( cell ).attr("id", "cell-" + i);
-    $( cell ).attr("maxlength", "1");
-    $( cell ).attr("data-index", i);
+  for (j = 0; j < boardLength; j++) {
+    let ind = (i*boardLength + j);
+    var sudokuCell = document.createElement('div');
+    sudokuCell.id = 'cell-' + ind;
+    sudokuCell.classList.add('flex-container', 'cell');
+    sudokuCell.dataset.index = ind;
 
-    if (i < boardLength) {
-      $( cell ).addClass("Tborder-o");
-    } else if (i >= totalCells - boardLength) {
-      $( cell ).addClass("Bborder-o");
-    } else if ((i % (boardLength * cellLength)) >= (boardLength * cellLength - boardLength)) {
-      $( cell ).addClass("Bborder-i");
-    } else if ((i % (boardLength * cellLength)) < (boardLength)) {
-      $( cell ).addClass("Tborder-i");
+    // Add borders
+    if (ind < boardLength) {
+      sudokuCell.classList.add('Tborder-o');
+    } else if (ind >= totalCells - boardLength) {
+      sudokuCell.classList.add('Bborder-o');
+    } else if ((ind % (boardLength * cellLength)) >= (boardLength * cellLength - boardLength)) {
+      sudokuCell.classList.add('Bborder-i');
+    } else if ((ind % (boardLength * cellLength)) < (boardLength)) {
+      sudokuCell.classList.add('Tborder-i');
     }
     
-    if (i % boardLength === 0) {
-      $( cell ).addClass("Lborder-o");
-    } else if ((i + 1) % boardLength === 0) {
-      $( cell ).addClass("Rborder-o");
-    } else if (i % cellLength === 0) {
-      $( cell ).addClass("Lborder-i");
-    } else if ((i+1) % cellLength === 0) {
-      $( cell ).addClass("Rborder-i");
+    if (ind % boardLength === 0) {
+      sudokuCell.classList.add('Lborder-o');
+    } else if ((ind + 1) % boardLength === 0) {
+      sudokuCell.classList.add('Rborder-o');
+    } else if (ind % cellLength === 0) {
+      sudokuCell.classList.add('Lborder-i');
+    } else if ((ind+1) % cellLength === 0) {
+      sudokuCell.classList.add('Rborder-i');
     }
-
+    
+    sudokuRow.appendChild(sudokuCell);
   }
+
+  document.getElementById('sudoku').appendChild(sudokuRow);
+}
+
+
+
+// Make icon buttons squares
+updateHeight();
+$( window ).resize(updateHeight);
+
+function updateHeight()
+{
+  var div = $('.iconBtn');
+  var height = div.height();
+  
+  div.css('width', height);
+}
+
+$( 'button' ).addClass('btn');
+
+// No transition animation when button clicked
+$( '.btn' ).mousedown(function() {
+  $( this ).addClass('immediateTransition');
 });
+$( '.iconBtn' ).mousedown(function() {
+  $( this ).addClass('immediateTransition');
+});
+$( document ).mouseup(function () {
+  setTimeout(function() {
+    $( '.immediateTransition' ).removeClass('immediateTransition');
+  }, 25);
+});
+
+$ ( '.currentNumpadMode' ).removeClass('btn');
 
 
 
@@ -79,28 +87,49 @@ $(document).ready(function(){
 
   // Keyboard functionality
   $( document ).keydown(function (event) {
-    if (event.keyCode == 46 || event.keyCode == 8) {
-      $( ".selected" ).val("");
-      updateCellValues("");
-    } else if ((event.keyCode >= 49 && event.keyCode <= 57) || (event.keyCode >= 97 && event.keyCode <= 105)) {
-      $( ".selected" ).val(event.key);
+    if (event.keyCode == 46 || event.keyCode == 8) {    // del/backspace
+      $( '.selected' ).html('');
+      updateCellValues('');
+    } else if ((event.keyCode >= 49 && event.keyCode <= 57) || (event.keyCode >= 97 && event.keyCode <= 105)) {   //numpads
+      $( '.selected' ).html(event.key);
+    } else if (event.keyCode >= 37 && event.keyCode <= 40) {       // arrow keys
+      $( '.selected' ).each(function() {
+        let newIndex = $( this ).data("index");
+        let indexChange = 0;
+        if (event.keyCode == 37) {indexChange = -1}       // left arrow
+        else if (event.keyCode == 39) {indexChange = 1}   // right arrow
+        else if (event.keyCode == 38) {indexChange = -9}  // up arrow
+        else {indexChange = 9}                            // down arrow
+
+        let movedIndex = $( this ).data("index") + indexChange;
+        if (movedIndex < 0) {
+          newIndex = movedIndex + totalCells;
+        } else if (movedIndex >= totalCells) {
+          newIndex = movedIndex - totalCells;
+        } else {
+          newIndex = movedIndex;
+        }
+
+        $( '#cell-' + newIndex ).addClass('selected');
+        $( this ).removeClass('selected');
+      });
     }
   });
 
   // *** select and deselect cells ***
   $(function () {
     var isMouseDown = false;
-    $( ".cell" )
+    $( '.cell' )
       .mousedown(function (event) {
         isMouseDown = true;
         if (!event.ctrlKey) {
-          $( ".selected" ).removeClass("selected");
+          $( '.selected' ).removeClass('selected');
         }
-        $( this ).addClass("selected");
+        $( this ).addClass('selected');
       })
       .mouseover(function () {
         if (isMouseDown) {
-          $(this).addClass("selected");
+          $(this).addClass('selected');
         }
       })
 
@@ -111,9 +140,9 @@ $(document).ready(function(){
   });
 
   // deselect cells when not clicking a cell or button
-  $( document ).click(function (event) {
-    if (!($( event.target ).closest(".cell").length)) {
-      $( ".selected" ).removeClass("selected");
+  $( document ).mousedown(function (event) {
+    if (!$( event.target ).is('.cell, .btn')) {
+      $( '.selected' ).removeClass('selected');
     }
   });
 
@@ -121,15 +150,15 @@ $(document).ready(function(){
   function updateCellValues(num) {
     var flag = false;
 
-    $( ".selected" ).each(function() {
-      $( this ).val(num);
+    $( '.selected' ).each(function() {
+      $( this ).html(num);
 
-      if (isNaN(Number($( this ).val()) && num != '')) {
+      if (isNaN(Number($( this ).html()) && num != '')) {
         console.log('Cells only accept 1-9 as values')
-      } else if ($( this ).data('oldVal') != $( this ).val()) {
+      } else if ($( this ).data('oldVal') != $( this ).html()) {
         flag = true;
         // Updated stored value
-        $( this ).data('oldVal', $( this ).val());
+        $( this ).data('oldVal', $( this ).html());
 
         cellValues[$( this ).data('index')] = Number($( this ).data('oldVal'));
       }
@@ -141,107 +170,76 @@ $(document).ready(function(){
 
   $('.cell').each(function() {
     // Save current value of element
-    $( this ).data('oldVal', $( this ).val());
+    $( this ).data('oldVal', $( this ).html());
 
     // Look for changes in the value
-    $( this ).on("propertychange change click keyup input paste", function(event){
-      // If value has changed...
+    $( this ).on('propertychange change click keyup input paste', function(event){
       updateCellValues($( this ).val());
     });
   });
 
 
   // *** home-page buttons ***
-  $( ".homeBtn" ).click(function() {
-    if (!$( ".homePageBtns" ).hasClass("currentGridMenu")) {
-      $( ".currentGridMenu").fadeOut("slow")
+  $( '.homeBtn' ).click(function() {
+    if (!$( '.homePageBtns' ).hasClass('currentGridMenu')) {
+      $( '.currentGridMenu').fadeOut('slow')
       .promise().done(function() {
-        $( ".currentGridMenu" ).removeClass("currentGridMenu");
-        $( ".homePageBtns" ).addClass("currentGridMenu")
-          .promise().done(function() {
-            $( ".homePageBtns" ).fadeIn("slow")
-        })
+        $( '.currentGridMenu' ).removeClass('currentGridMenu');
+        $( '.homePageBtns' ).addClass('currentGridMenu')
+        $( '.homePageBtns' ).fadeIn('slow')
       })
     }
   });
 
-  $( ".customBoard" ).click(function() {
-    if ($( ".homePageBtns" ).hasClass("currentGridMenu")) {
-      $( ".homePageBtns" ).fadeOut("slow").removeClass("currentGridMenu")
+  $( '.customBoard' ).click(function() {
+    if ($( '.homePageBtns' ).hasClass('currentGridMenu')) {
+      $( '.homePageBtns' ).fadeOut('slow').removeClass('currentGridMenu')
       .promise().done(function() {
-        $( ".customBoardBtns" ).fadeIn("slow").addClass("currentGridMenu")
+        $( '.customBoardBtns' ).fadeIn('slow').addClass('currentGridMenu')
       })
     }
   });
 
-  $( ".playGiven" ).click(function() {
-    if ($( ".homePageBtns" ).hasClass("currentGridMenu")) {
-      $( ".homePageBtns" ).fadeOut("slow").removeClass("currentGridMenu")
+  $( '.playGiven' ).click(function() {
+    if ($( '.homePageBtns' ).hasClass('currentGridMenu')) {
+      $( '.homePageBtns' ).fadeOut('slow').removeClass('currentGridMenu')
       .promise().done(function() {
-        $( ".inGameBtns" ).fadeIn("slow").addClass("currentGridMenu")
+        $( '.inGameBtns' ).fadeIn('slow').addClass('currentGridMenu')
       })
     }
   });
 
 
   // *** in-game-btns ***
-  $( ".numpadMode" ).click(function() {
-    if (!$( this ).hasClass("currentNumpadMode")) {
-      $( ".currentNumpadMode" ).addClass("btn immediateTransition").removeClass("currentNumpadMode");
-      $( this ).addClass("currentNumpadMode");
-      $( this ).removeClass("btn");
+  $( '.numpadMode' ).click(function() {
+    if (!$( this ).hasClass('currentNumpadMode')) {
+      $( '.currentNumpadMode' ).addClass('btn immediateTransition').removeClass('currentNumpadMode');
+      $( this ).addClass('currentNumpadMode');
+      $( this ).removeClass('btn');
     }
   });
 
-  $( ".numpad" ).click(function() {
-    var num = $( this ).data("num");
+  $( '.numpad' ).click(function() {
+    var num = $( this ).data('num');
     updateCellValues(num);
     return false;
   });
 
-  $( ".delete" ).click(function() {
-    $( ".selected" ).val("");
+  $( '.delete' ).click(function() {
+    $( '.selected' ).html('');
     return false;
   });
 
-  // Restricts input for the given textbox to the given inputFilter function.
-  function setInputFilter(textbox, inputFilter) {
-      ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
-        textbox.addEventListener(event, function() {
-          if (inputFilter(this.value)) {
-            this.oldValue = this.value;
-            this.oldSelectionStart = this.selectionStart;
-            this.oldSelectionEnd = this.selectionEnd;
-          } else if (this.hasOwnProperty("oldValue")) {
-            this.value = this.oldValue;
-            this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
-          } else {
-            this.value = "";
-          }
-        });
-      });
-  }
-
-  // Restricts input of all sudoku cells to 1-9
-  for (l = 0; l < totalCells; l++) {
-    if (document.getElementsByClassName('cell').length == 0) {
-      break;
-    } else {setInputFilter(document.getElementsByClassName('cell')[l], function(value) {
-        return /^\d*$/.test(value) && (value === "" || parseInt(value) > 0); });
-    }
-  }
-
-
   // 404 Error Page
-  $( ".goHomeButton404" ).click(function() {
+  $( '.goHomeButton404' ).click(function() {
     window.location.href='/';
   });
 
 
   // REST API
   $.ajax({
-    type: "GET",
-    url: "",
+    type: 'GET',
+    url: '',
     success: function (){
 
     }
