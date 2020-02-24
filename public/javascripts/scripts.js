@@ -12,42 +12,44 @@ cellValues.length = totalCells;
 cellValues.fill(0);
 
 // Create sudoku board
-for (i = 0; i < boardLength; i++) {
-  var sudokuRow = document.createElement('div');
-  sudokuRow.classList.add('sudokuRow', 'grid-container');
+if (document.getElementById('sudoku')) {
+  for (i = 0; i < boardLength; i++) {
+    var sudokuRow = document.createElement('div');
+    sudokuRow.classList.add('sudokuRow', 'grid-container');
 
-  for (j = 0; j < boardLength; j++) {
-    let ind = (i*boardLength + j);
-    var sudokuCell = document.createElement('div');
-    sudokuCell.id = 'cell-' + ind;
-    sudokuCell.classList.add('flex-container', 'cell');
-    sudokuCell.dataset.index = ind;
+    for (j = 0; j < boardLength; j++) {
+      let ind = (i*boardLength + j);
+      var sudokuCell = document.createElement('div');
+      sudokuCell.id = 'cell-' + ind;
+      sudokuCell.classList.add('flex-container', 'cell');
+      sudokuCell.dataset.index = ind;
 
-    // Add borders
-    if (ind < boardLength) {
-      sudokuCell.classList.add('Tborder-o');
-    } else if (ind >= totalCells - boardLength) {
-      sudokuCell.classList.add('Bborder-o');
-    } else if ((ind % (boardLength * cellLength)) >= (boardLength * cellLength - boardLength)) {
-      sudokuCell.classList.add('Bborder-i');
-    } else if ((ind % (boardLength * cellLength)) < (boardLength)) {
-      sudokuCell.classList.add('Tborder-i');
+      // Add borders
+      if (ind < boardLength) {
+        sudokuCell.classList.add('Tborder-o');
+      } else if (ind >= totalCells - boardLength) {
+        sudokuCell.classList.add('Bborder-o');
+      } else if ((ind % (boardLength * cellLength)) >= (boardLength * cellLength - boardLength)) {
+        sudokuCell.classList.add('Bborder-i');
+      } else if ((ind % (boardLength * cellLength)) < (boardLength)) {
+        sudokuCell.classList.add('Tborder-i');
+      }
+      
+      if (ind % boardLength === 0) {
+        sudokuCell.classList.add('Lborder-o');
+      } else if ((ind + 1) % boardLength === 0) {
+        sudokuCell.classList.add('Rborder-o');
+      } else if (ind % cellLength === 0) {
+        sudokuCell.classList.add('Lborder-i');
+      } else if ((ind+1) % cellLength === 0) {
+        sudokuCell.classList.add('Rborder-i');
+      }
+      
+      sudokuRow.appendChild(sudokuCell);
     }
-    
-    if (ind % boardLength === 0) {
-      sudokuCell.classList.add('Lborder-o');
-    } else if ((ind + 1) % boardLength === 0) {
-      sudokuCell.classList.add('Rborder-o');
-    } else if (ind % cellLength === 0) {
-      sudokuCell.classList.add('Lborder-i');
-    } else if ((ind+1) % cellLength === 0) {
-      sudokuCell.classList.add('Rborder-i');
-    }
-    
-    sudokuRow.appendChild(sudokuCell);
+
+    document.getElementById('sudoku').appendChild(sudokuRow);
   }
-
-  document.getElementById('sudoku').appendChild(sudokuRow);
 }
 
 
