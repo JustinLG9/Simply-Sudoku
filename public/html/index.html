@@ -31,8 +31,8 @@
             <button class='playGiven homePageBtn'>Play Given Sudoku</button>
             <button class='newRandomBoard homePageBtn'>New Random Sudoku</button>
             <button class='customBoard homePageBtn'>Custom Sudoku</button>
-            <button class='login homePageBtn'>Login</button>
-            <button class='signUp homePageBtn'>Sign Up</button>
+            <!-- <button class='login homePageBtn'>Login</button>
+            <button class='signUp homePageBtn'>Sign Up</button> -->
             
         </div> <!-- homePageBtns -->
 
@@ -53,24 +53,49 @@
           
         </div> <!-- customBoardBtns -->
 
+        <div class='custBoardSub'>
+          <div class='grid-container custBoardSubMessage'>
+            <i class='flex-container custBoardMessageIcon fa'></i>
+            <span class='flex-container custBoardSubInnerMessage'></span>
+          </div>
+        </div>
+
         <div class='grid-container inGameBtns btnMenu'>
 
           <button class='normal numpadMode currentNumpadMode inGameBtn'>Normal</button>
           <button class='corner numpadMode inGameBtn'>Corner</button>
           <button class='center numpadMode inGameBtn'>Center</button>
-          <button class='color numpadMode inGameBtn'>Color</button>
-          <button class='numpad numpad-1 inGameBtn' data-num='1' data-color='maroon'>1</button>
-          <button class='numpad numpad-2 inGameBtn' data-num='2' data-color='forestgreen'>2</button>
-          <button class='numpad numpad-3 inGameBtn' data-num='3' data-color='purple'>3</button>
-          <button class='numpad numpad-4 inGameBtn' data-num='4' data-color='sienna'>4</button>
-          <button class='numpad numpad-5 inGameBtn' data-num='5' data-color='goldenrod'>5</button>
-          <button class='numpad numpad-6 inGameBtn' data-num='6' data-color='plum'>6</button>
-          <button class='numpad numpad-7 inGameBtn' data-num='7' data-color='orange'>7</button>
-          <button class='numpad numpad-8 inGameBtn' data-num='8' data-color='salmon'>8</button>
-          <button class='numpad numpad-9 inGameBtn' data-num='9' data-color='sandybrown'>9</button>
+          <!-- <button class='color numpadMode inGameBtn'>Color</button> -->
+          <button class='numpad numpad-1 inGameBtn' data-num='1' data-color='maroon'>
+            <span class='numpadCont numpadCont-1 flex-container'>1</span>
+          </button>
+          <button class='numpad numpad-2 inGameBtn' data-num='2' data-color='forestgreen'>
+            <span class='numpadCont numpadCont-2 flex-container'>2</span>
+          </button>
+          <button class='numpad numpad-3 inGameBtn' data-num='3' data-color='purple'>
+            <span class='numpadCont numpadCont-3 flex-container'>3</span>
+          </button>
+          <button class='numpad numpad-4 inGameBtn' data-num='4' data-color='sienna'>
+            <span class='numpadCont numpadCont-4 flex-container'>4</span>
+          </button>
+          <button class='numpad numpad-5 inGameBtn' data-num='5' data-color='goldenrod'>
+            <span class='numpadCont numpadCont-5 flex-container'>5</span>
+          </button>
+          <button class='numpad numpad-6 inGameBtn' data-num='6' data-color='plum'>
+            <span class='numpadCont numpadCont-6 flex-container'>6</span>
+          </button>
+          <button class='numpad numpad-7 inGameBtn' data-num='7' data-color='orange'>
+            <span class='numpadCont numpadCont-7 flex-container'>7</span>
+          </button>
+          <button class='numpad numpad-8 inGameBtn' data-num='8' data-color='salmon'>
+            <span class='numpadCont numpadCont-8 flex-container'>8</span>
+          </button>
+          <button class='numpad numpad-9 inGameBtn' data-num='9' data-color='sandybrown'>
+            <span class='numpadCont numpadCont-9 flex-container'>9</span>
+          </button>
           <button class='delete inGameBtn'>Delete</button>
-          <button class='func-btn undo inGameBtn'>Undo</button>
-          <button class='func-btn redo inGameBtn'>Redo</button>
+          <!-- <button class='func-btn undo inGameBtn'>Undo</button>
+          <button class='func-btn redo inGameBtn'>Redo</button> -->
           <button class='func-btn check inGameBtn'>Check</button>
           <button class='func-btn restart inGameBtn'>Restart</button>
       
