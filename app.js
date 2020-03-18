@@ -14,7 +14,7 @@ mongoose.connect('mongodb+srv://JustinLG:' + process.env.MONGO_ATLAS_PSW + '@sim
 mongoose.connection.on('error', err => { console.log(err) });
 
 let db = mongoose.connection;
-const Board = require(path.join(__dirname, 'models\\boards.js'));
+const Board = require(path.join(__dirname, 'models/boards.js'));
 
 const app = express();
 
