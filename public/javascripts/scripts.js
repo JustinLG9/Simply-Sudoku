@@ -171,7 +171,6 @@ function populateRandomBoard() {
     type: 'GET',
     url: '/randomBoard',
     success: function(board) {
-      console.log('!!!!!!!!!! 3 !!!!!!!!!!');
       if (playBoard._id == board._id) {
         populateRandomBoard();
       } else {

@@ -6,7 +6,6 @@ var bodyParser = require('body-parser')
 const logger = require('morgan');
 const mongoose = require('mongoose');
 
-console.log(process.env.MONGO_ATLAS_PSW);
 mongoose.connect('mongodb+srv://JustinLG:' + process.env.MONGO_ATLAS_PSW + '@simplysudoku-lxviz.mongodb.net/simplySudoku?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true })
@@ -32,10 +31,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-let port = process.env.PORT;
-if (port == null || port == "") {
-  port = 8000;
-}
+let port = process.env.PORT || 8000;
 app.listen(port);
 
 //-------------------------- Routing --------------------------//
@@ -44,12 +40,9 @@ app.get('/', function(req, res, next) {
 });
 
 app.get('/randomBoard', function(req, res) {
-  console.log('!!!!!!!!!! 1 !!!!!!!!!!');
   Board.aggregate([
     { $sample: { size: 1 } }
   ], function(err, result) {
-    console.log('!!!!!!!!!! 2 !!!!!!!!!!');
-    console.log('Result: ' + result);
     res.status(200).json(result[0]);
   })
   .catch(err => {
