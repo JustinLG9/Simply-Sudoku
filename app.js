@@ -7,7 +7,7 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 
 console.log(process.env.MONGO_ATLAS_PSW);
-mongoose.connect('mongodb+srv://JustinLG:' + process.env.MONGO_ATLAS_PSW + '@simplysudoku-lxviz.mongodb.net/test?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://JustinLG:' + process.env.MONGO_ATLAS_PSW + '@simplysudoku-lxviz.mongodb.net/simplySudoku?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true })
   .then( console.log('Connection to MongoDB database successful'))
