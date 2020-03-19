@@ -49,6 +49,7 @@ app.get('/randomBoard', function(req, res) {
     { $sample: { size: 1 } }
   ], function(err, result) {
     console.log('!!!!!!!!!! 2 !!!!!!!!!!');
+    console.log('Result: ' + result);
     res.status(200).json(result[0]);
   })
   .catch(err => {
