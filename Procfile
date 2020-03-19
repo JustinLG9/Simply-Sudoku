@@ -1,1 +1,1 @@
-web: node app.js
+web: MONGO_ATLAS_PSW=94EDF12a5f node app.js
