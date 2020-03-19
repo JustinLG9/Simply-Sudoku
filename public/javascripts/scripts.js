@@ -162,17 +162,17 @@ if ( document.getElementById('sudoku') ) {
     document.getElementById('sudoku').appendChild(sudokuRow);
   }
 
-  PopulateRandomBoard();
+  populateRandomBoard();
 };
 
 
-function PopulateRandomBoard() {
+function populateRandomBoard() {
   $.ajax({
     type: 'GET',
     url: '/randomBoard',
     success: function(board) {
       if (playBoard._id == board._id) {
-        PopulateRandomBoard();
+        populateRandomBoard();
       } else {
         playBoard = board;
         for (i = 0; i < totalCells; i++) {
@@ -345,7 +345,7 @@ $(document).ready(function(){
       playBoardCells.forEach(function(value) {
         value.reset();
       });
-      PopulateRandomBoard();
+      populateRandomBoard();
     }
   });
 

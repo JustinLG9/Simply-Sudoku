@@ -45,8 +45,12 @@ app.get('/', function(req, res, next) {
 app.get('/randomBoard', function(req, res) {
   Board.aggregate([
     { $sample: { size: 1 } }
-  ], function(err, result) {
+  ], function(result) {
     res.status(200).json(result[0]);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(404).json(err);
   });
 });
 
