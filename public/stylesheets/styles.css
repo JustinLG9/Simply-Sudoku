@@ -30,12 +30,11 @@ body {
     height: 100%;
     width: 100%;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 5fr 3fr 1fr;
+    grid-template-rows: 1fr 5fr 3fr;
     grid-template-areas: 
     "header"
     "sudoku"
-    "buttons"
-    "footer";
+    "buttons";
     background-color: #FFF4EC;
 }
 .header {
@@ -47,41 +46,15 @@ body {
     margin: auto;
 }
 
-.footer {
-    grid-area: footer;
-    background-color: #E7CFBC;
+.homeBtn {
+    position: absolute;
+    right: 3vh;
+    top: calc(100vh/9 + 3vh);
+    z-index: 9998;
+    font-size: calc(20px + (35 - 20) * ((100vw - 340px) / (1600 - 340)));
 }
-.iconBtn {
-    background: #E7CFBC;
-    height: 60%; /* width is matched to height in scripts.js */
-    margin: 0 16px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.homeBtn:hover {
     cursor: pointer;
-    transition: all 400ms;
-    font-size: 1.5em;
-  
-    box-shadow: 2px 2px 10px #736458, -4px -4px 13px #fff1e6,
-      inset 4px 4px 8px rgba(82, 70, 61, 0.1),
-      inset -8px -8px 8px rgba(255, 255, 255, 0.2);
-  
-    border: 1px solid rgba(255, 255, 255, 0.3);
-  }
-.iconBtn:hover {
-    box-shadow: 2px 1px 7px #736458, -2px -2px 7px #fff1e6,
-      inset 4px 4px 10px rgba(82, 70, 61, 0.2),
-      inset -8px -8px 8px rgba(255, 255, 255, 0.2);
-  
-    transform: translateY(2px);
-}
-.iconBtn:active {
-    background-color: #5c4634;
-    color: white;
-    border: 1px solid rgba(29, 36, 43, 0.3);
-    box-shadow: 2px 1px 7px grey, -2px -2px 7px #fff,
-        inset 0px 0px 0px 0px;
 }
 
 #sudoku {
@@ -440,11 +413,10 @@ body {
 @media only screen and (orientation: landscape) {
     .page {
         grid-template-columns: 3fr 2fr;
-        grid-template-rows: 1fr 8fr 1fr;
+        grid-template-rows: 1fr 8fr;
         grid-template-areas: 
         "header header"
-        "sudoku buttons"
-        "footer footer";
+        "sudoku buttons";
     }
     .inGameBtns {
         grid-template-columns: 2fr 2vw repeat(3, minmax(42px, 8vmin));
@@ -473,11 +445,10 @@ body {
     }
     .page {
         grid-template-columns: 3fr 2fr;
-        grid-template-rows: 1fr 8fr 1fr;
+        grid-template-rows: 1fr 8fr;
         grid-template-areas: 
         "header header"
-        "sudoku buttons"
-        "footer footer";
+        "sudoku buttons";
     }
     .currentNumpadMode {
         transform: translateY(2px);

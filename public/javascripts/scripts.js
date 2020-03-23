@@ -205,25 +205,10 @@ function AddNewNum2SortedString(string, num) {
 
 
 
-// Make icon buttons squares
-updateHeight();
-$( window ).resize(updateHeight);
-
-function updateHeight()
-{
-  const div = $('.iconBtn');
-  let height = div.height();
-  
-  div.css('width', height);
-}
-
 $( 'button' ).addClass('btn');
 
 // No transition animation when button clicked
 $( '.btn' ).mousedown(function() {
-  $( this ).addClass('immediateTransition');
-});
-$( '.iconBtn' ).mousedown(function() {
   $( this ).addClass('immediateTransition');
 });
 $( document ).mouseup(function () {
