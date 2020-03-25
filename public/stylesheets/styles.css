@@ -196,8 +196,6 @@ body {
     "playGiven playGiven"
     "newRandomBoard newRandomBoard"
     "customBoard customBoard";
-    /*". ."
-    "login signUp";*/
     grid-gap: 1.5em;
 }
 .customBoard {grid-area: customBoard;}

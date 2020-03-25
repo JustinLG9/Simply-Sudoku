@@ -1,4 +1,3 @@
-// Display buttons so they have innate grid-display, then hide
 $( '.customBoardBtns' ).hide();
 $( '.inGameBtns' ).hide();
 
@@ -45,7 +44,7 @@ function Cell() {
     };
   this.addCornerVal = function(num) {
       if (!this.solved) {
-        let temp = AddNewNum2SortedString(this.cornerVals, String(num));
+        let temp = addNewNum2SortedString(this.cornerVals, String(num));
         if (temp.length < 5) {
           this.cornerVals = temp;
           for (j = 0; j < 4; j++) {
@@ -60,7 +59,7 @@ function Cell() {
     };
   this.addCenterVal = function(num) {
       if (!this.solved) {
-        this.centerVals = AddNewNum2SortedString(this.centerVals, String(num));
+        this.centerVals = addNewNum2SortedString(this.centerVals, String(num));
         $( '.centerVal', this.cell ).text(this.centerVals);
       }
     };
@@ -186,7 +185,7 @@ function populateRandomBoard() {
   });
 }
 
-function AddNewNum2SortedString(string, num) {
+function addNewNum2SortedString(string, num) {
   if (string.length) {
     for (i = 0; i < string.length; i++) {
       if ( string[i] > num) {
