@@ -328,8 +328,8 @@ body {
     display: none;
 }
 .custBoardSubMessage {
-    width: 70vw;
-    height: 30vh;
+    width: 262.5px;
+    height: 200px;
     background-color: #FFF4EC;
     box-shadow: 0 0 20px black;
     border-radius: 2em;
