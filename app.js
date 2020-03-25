@@ -17,11 +17,9 @@ const Board = require(path.join(__dirname, 'models/boards.js'));
 
 const app = express();
 
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-//var jsonParser = bodyParser.json();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger('dev'));
@@ -43,10 +41,6 @@ app.get('/randomBoard', function(req, res) {
     { $sample: { size: 1 } }
   ], function(err, result) {
     res.status(200).json(result[0]);
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(404).json(err);
   });
 });
 
@@ -54,9 +48,7 @@ app.post('/uniqueSolution', function(req, res) {
   let grid = req.body.sudoku;
   grid.forEach(function(value, index) {
     grid[index] = Number(grid[index]);
-  }) 
-  console.log('!!!!!ALERT!!!!!')
-  console.log(grid);
+  });
   let [numSolutions, solutions] = solveSudoku(grid, findLastUnassignedLocation(grid));
   let board = '';
   if (numSolutions == 1) {
@@ -101,27 +93,6 @@ app.get('/:board', function(req, res, next) {
       console.log(err);
       res.status(404).render('404');
     })
-});
-
-app.post('/createBoard', function(req, res, next) {
-  const board = new Board({
-    _id: new mongoose.Types.ObjectId(),
-    submitter: req.body.submitter,
-    givens: req.body.givens,
-    solution: req.body.solution,
-    difficulty: req.body.difficulty,
-    techniquesUsed: req.body.techniquesUsed,
-    timesPlayed: req.body.timesPlayed,
-    timesSolved: req.body.timesSolved,
-    averageSolveTime: req.body.averageSolveTime
-  })
-  board
-    .save()
-    .then(result => {
-      console.log(result);
-      res.json('Successful uploading to database');
-    })
-    .catch(err => console.log(err));
 });
 
 // error handler
