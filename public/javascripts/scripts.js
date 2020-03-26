@@ -388,7 +388,6 @@ $(document).ready(function(){
       else
         grid.push(0);
     }
-    console.log(grid);
     $.ajax({
       type: 'POST',
       url: '/uniqueSolution',
@@ -396,7 +395,6 @@ $(document).ready(function(){
       data: { sudoku: grid },
       traditional: true,
       success: function(res) {
-        console.log(res)
         if (res.error) {
           toggleCustomBoardSub(`Error uploading board to database. Please try again. Error Message: ${res.error}`, 0);
         }
