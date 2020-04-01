@@ -327,8 +327,7 @@ $(document).ready(function(){
     if ( $( '.homePageBtns' ).hasClass('currentGridMenu') ) {
       $( '.sudokuTimer' ).fadeIn('slow');
       sudokuStartTime = Date.now();
-      if (!markIncorrectCells(playBoard, playBoardCells)) {
-        updateTimer = setInterval(function() {
+      updateTimer = setInterval(function() {
           let delta = Date.now() - sudokuStartTime;
           sudokuTimer += delta;
           sudokuStartTime += delta;
@@ -338,8 +337,7 @@ $(document).ready(function(){
           $( '.sudokuTimer' ).html((hours ? hours + ':' : '') + 
                                   ((hours && String(minutes).length == 1) ? '0' + minutes + ':' : minutes + ':') + 
                                   (String(seconds).length == 2 ? seconds : '0' + seconds));
-        }, 100)
-      }
+      }, 100)
 
       $( '.cell' ).removeClass('unselectable');
       $( '.homePageBtns' ).fadeOut('slow').removeClass('currentGridMenu')
