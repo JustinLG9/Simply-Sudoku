@@ -446,7 +446,7 @@ $(document).ready(function(){
         } else {
           toggleCustomBoardSub(`This sudoku has more than one solution. Please try again.`, 0);
         }
-      }
+      } 
     });
   });
 
