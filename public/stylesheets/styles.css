@@ -45,6 +45,14 @@ body {
     font-size: 2rem;
     margin: auto;
 }
+.sudokuTimer {
+    display: none;
+    position: absolute;
+    top: calc(100vh/9 + 3vh);
+    left: 3vh;
+    z-index: 9998;
+    font-size: calc(20px + (35 - 20) * ((100vw - 340px) / (1600 - 340)));
+}
 
 .homeBtn {
     position: absolute;
@@ -432,7 +440,9 @@ body {
 
 /*--------------------------------- Tablet Screen Sizes ---------------------------------*/
 @media only screen and (min-width: 768px) {
-    
+    .sudokuTimer {
+        top: calc((100vh/9)/2 - (20px + (35 - 20) * ((100vw - 340px) / (1600 - 340)))/2)
+    }
 }
 
 /*--------------------------------- Desktop Screen Sizes ---------------------------------*/

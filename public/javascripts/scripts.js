@@ -2,14 +2,14 @@ $( '.customBoardBtns' ).hide();
 $( '.inGameBtns' ).hide();
 
 
-const totalCells = 81;
-const boardLength = Math.sqrt(totalCells); // 9
-const blockLength = Math.sqrt(boardLength); // 3
+const totalCells = 81,
+      boardLength = Math.sqrt(totalCells), // 9
+      blockLength = Math.sqrt(boardLength); // 3
 
-let playBoard = {};
-let playBoardCells = [];
-let customBoard = {};
-let custBoardCells = [];
+let playBoard = {},
+    playBoardCells = [],
+    customBoard = {},
+    custBoardCells = [];
 
 function Cell() {
   this.solvedVal = '';
@@ -180,6 +180,7 @@ function populateRandomBoard() {
             playBoardCells[i].addGivenVal(value);
           }
         }
+        sudokuTimer = 0;
       }
     }
   });
@@ -202,6 +203,10 @@ function addNewNum2SortedString(string, num) {
   return num;
 }
 
+
+let sudokuTimer = 0,
+    sudokuStartTime = Date.now(),
+    updateTimer = 0;
 
 
 $( 'button' ).addClass('btn');
@@ -300,6 +305,10 @@ $(document).ready(function(){
         $( '.cell' ).children().fadeOut('slow');
         flag = true;
       }
+
+      clearInterval(updateTimer);
+      $( '.sudokuTimer' ).fadeOut('slow');
+
       $( '.cell' ).addClass('unselectable');
       $( '.currentGridMenu').fadeOut('slow')
       .promise().done(function() {
@@ -316,6 +325,20 @@ $(document).ready(function(){
 
   $( '.playGiven' ).click(function() {
     if ( $( '.homePageBtns' ).hasClass('currentGridMenu') ) {
+      $( '.sudokuTimer' ).fadeIn('slow');
+      sudokuStartTime = Date.now();
+      updateTimer = setInterval(function() {
+        let delta = Date.now() - sudokuStartTime;
+        sudokuTimer += delta;
+        sudokuStartTime += delta;
+        const hours = Math.floor(sudokuTimer / 3600000);
+        const minutes = Math.floor(sudokuTimer / 60000) % 60;
+        const seconds = Math.floor(sudokuTimer / 1000) % 60;
+        $( '.sudokuTimer' ).html((hours ? hours + ':' : '') + 
+                                ((hours && String(minutes).length == 1) ? '0' + minutes + ':' : minutes + ':') + 
+                                (String(seconds).length == 2 ? seconds : '0' + seconds));
+      }, 100)
+
       $( '.cell' ).removeClass('unselectable');
       $( '.homePageBtns' ).fadeOut('slow').removeClass('currentGridMenu')
       .promise().done(function() {
@@ -413,15 +436,15 @@ $(document).ready(function(){
             value.reset();
           })
 
+          sudokuTimer = 0;
+
           $( '.customBoardBtns' ).fadeOut('slow').removeClass('currentGridMenu')
           .promise().done(function() {
             $( '.inGameBtns' ).fadeIn('slow').addClass('currentGridMenu')
             toggleWorkingBoard(playBoardCells);
           })
-        } else if (res.numSolutions == 50) {
-          toggleCustomBoardSub(`This sudoku has over ${res.numSolutions} solutions. Please try again.`, 0);
         } else {
-          toggleCustomBoardSub(`This sudoku has ${res.numSolutions} solutions. Please try again.`, 0);
+          toggleCustomBoardSub(`This sudoku has more than one solution. Please try again.`, 0);
         }
       }
     });
