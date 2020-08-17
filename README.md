@@ -1,5 +1,7 @@
 # Simply-Sudoku
 
+![Portfolio](./public/images/portfolio.png)
+
 Simply Sudoku is a user-generated sudoku app. Users can play sudokus created by others or create their own to play and share with others!
 
 To Play: Simply navigate to the site and you will find a sudoku ready to go! Want a new one? Simply click the "New Random Sudoku" button and you get a brand new sudoku created by another user!
