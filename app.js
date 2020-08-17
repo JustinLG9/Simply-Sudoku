@@ -49,35 +49,41 @@ app.post('/uniqueSolution', function(req, res) {
   grid.forEach(function(value, index) {
     grid[index] = Number(grid[index]);
   });
-  let [numSolutions, solutions] = solveSudoku(grid, findLastUnassignedLocation(grid));
-  let board = '';
-  if (numSolutions == 1) {
-    board = new Board({
-      _id: new mongoose.Types.ObjectId(),
-      submitter: '',
-      givens: grid,
-      solution: solutions[0],
-      difficulty: 0,
-      techniquesUsed: [],
-      timesPlayed: 1,
-      timesSolved: 0,
-      averageSolveTime: 0
-    })
-    board
-      .save()
-      .then(result => {
-        console.log(result);
+  if (sudokuInvalidCells(grid).length) {
+    let [numSolutions, solutions] = solveSudoku(grid, findLastUnassignedLocation(grid));
+    let board = '';
+    if (numSolutions == 1) {
+      board = new Board({
+        _id: new mongoose.Types.ObjectId(),
+        submitter: '',
+        givens: grid,
+        solution: solutions[0],
+        difficulty: 0,
+        techniquesUsed: [],
+        timesPlayed: 1,
+        timesSolved: 0,
+        averageSolveTime: 0
       })
-      .catch(err => {
-        console.log(err);
-        res.status(200).json({error: err});
-      });
+      board
+        .save()
+        .then(result => {
+          console.log(result);
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(200).json({error: err});
+        });
+    }
+    res.status(200).json({
+      numSolutions: numSolutions,
+      solutions: solutions,
+      board: board
+    })
+  } else {
+    res.status(200).json({
+      invalidCells: sudokuInvalidCells(grid)
+    })
   }
-  res.status(200).json({
-    numSolutions: numSolutions,
-    solutions: solutions,
-    board: board
-  });
 });
 
 app.get('/:board', function(req, res, next) {
@@ -166,6 +172,17 @@ function findLastUnassignedLocation(grid) {
         index--;
     }
   }
+}
+
+function sudokuInvalidCells(grid) {
+  let invalidCells = [];
+
+  grid.forEach(function(value, index) {
+    if (!noConflicts(grid, index, value))
+      invalidCells.push(index);
+  })
+
+  return invalidCells;
 }
 
 function noConflicts(grid, index, num) {

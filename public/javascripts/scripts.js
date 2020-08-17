@@ -421,6 +421,11 @@ $(document).ready(function(){
       success: function(res) {
         if (res.error) {
           toggleCustomBoardSub(`Error uploading board to database. Please try again. Error Message: ${res.error}`, 0);
+        } else if (res.invalidCells) {
+          res.invalidCells.forEach(function(value) {
+            $( custBoardCells[value] ).addClass('incorrect');
+          })
+          toggleCustomBoardSub('This is not a legal sudoku. Please fix invalid numbers and try again.', 0);
         }
         if (!res.numSolutions) {
           toggleCustomBoardSub('This sudoku has 0 solutions. Please try again.', 0);
